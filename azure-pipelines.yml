@@ -10,10 +10,13 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Subscription'
+    azureResourceManagerConnection: 'devopsConnectionToNttAzureEngg'
+    subscriptionId: 'a94f0758-94a8-426d-a3b6-aec6e83b51de'
+    location: 'East US 2'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://raw.githubusercontent.com/mandukuri/azure-quickstart/main/ubuntu-desktop-gnome-rdp/azuredeploy.json?token=GHSAT0AAAAAAB2H736ZSEIDZ6UFV6OKTUXYY2THYVQ'
+    csmParametersFileLink: 'https://raw.githubusercontent.com/mandukuri/azure-quickstart/main/ubuntu-desktop-gnome-rdp/azuredeploy.parameters.json?token=GHSAT0AAAAAAB2H736Y6CG4KNMDIGZOAHEGY2THZQQ'
+    deploymentMode: 'Incremental'
