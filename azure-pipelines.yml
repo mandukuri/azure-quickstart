@@ -10,10 +10,15 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'devopsConnectionToNttAzureEngg'
+    subscriptionId: 'a94f0758-94a8-426d-a3b6-aec6e83b51de'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'amodrg1'
+    location: 'East US 2'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://dev.azure.com/115613/msaIACproj1/_git/msaIACproj2?path=/101-vm-simple-linux/azuredeploy.json'
+    csmParametersFileLink: 'https://dev.azure.com/115613/msaIACproj1/_git/msaIACproj2?path=/101-vm-simple-linux/azuredeploy.parameters.json'
+    deploymentMode: 'Incremental'
